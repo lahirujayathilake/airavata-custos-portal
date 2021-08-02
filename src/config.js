@@ -6,7 +6,9 @@ export default class Configuration {
         return {
             clientId: '$VUE_APP_CLIENT_ID',
             clientSec: '$VUE_APP_CLIENT_SEC',
-            redirectURI: '$VUE_APP_REDIRECT_URI'
+            redirectURI: '$VUE_APP_REDIRECT_URI',
+            custosApiUrl: '$VUE_APP_CUSTOS_API_URL',
+            superClientId: '$VUE_APP_SUPER_CLIENT_ID'
         }
     }
 
