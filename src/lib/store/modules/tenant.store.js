@@ -1,4 +1,5 @@
 import {custosService} from "../util/custos.util";
+import config from "@/config";
 
 const getDefaultState = () => {
     return {
@@ -37,7 +38,7 @@ const actions = {
             let currentUsername = rootGetters["auth/currentUsername"];
 
             // TODO fix
-            if (client_id === "custos-6nwoqodstpe5mvcq09lh-10000101") {
+            if (client_id === config.value('superClientId')) {
                 type = "SUPER_TENANT";
             } else if (parent_tenant_id === "0") {
                 type = "ADMIN_TENANT";
@@ -88,7 +89,7 @@ const actions = {
         let currentUsername = rootGetters["auth/currentUsername"];
 
         // TODO fix
-        if (clientId === "custos-6nwoqodstpe5mvcq09lh-10000101") {
+        if (clientId === config.value('superClientId')) {
             type = "SUPER_TENANT";
         } else if (parent_tenant_id === "0") {
             type = "ADMIN_TENANT";

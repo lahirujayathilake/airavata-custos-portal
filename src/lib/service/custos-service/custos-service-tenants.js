@@ -1,4 +1,5 @@
 import CustosService from "./index";
+import config from "@/config";
 
 export default class CustosTenants {
     /**
@@ -26,7 +27,7 @@ export default class CustosTenants {
         };
 
         // TODO fix.
-        if (parentClientId !== "custos-6nwoqodstpe5mvcq09lh-10000101") {
+        if (parentClientId !== config.value('superClientId')) {
             url = `${CustosService.ENDPOINTS.TENANTS}/child/tenants`;
             params["parent_client_id"] = parentClientId;
         } else {
@@ -95,7 +96,7 @@ export default class CustosTenants {
 
     async createTenant({username, firstName, lastName, email, password, tenantName, redirectUris, scope, domain, clientUri, logoUri, comment, applicationType, parentClientId, parentClientSecret}) {
         let axiosInstance;
-        if (parentClientId !== "custos-6nwoqodstpe5mvcq09lh-10000101") {
+        if (parentClientId !== config.value('superClientId')) {
             axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({
                 clientId: parentClientId,
                 clientSecret: parentClientSecret
