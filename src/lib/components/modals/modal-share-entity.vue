@@ -1,6 +1,5 @@
 <template>
   <b-modal :id="modalId" :title="title" v-on:show="reset" size="md">
-    currentUsername : {{currentUsername}}
     <input-select-users-or-groups :client-id="clientId" v-on:change="onSelect"/>
     <b-overlay :show="processing">
       <b-skeleton-table v-if="processing" :rows="4" :columns="3"/>
@@ -14,7 +13,7 @@
             <div>
               <b-dropdown variant="outline-secondary" size="sm" :id="`dropdown-permission-type-${ownerIndex}`"
                           offset="25"
-                          :text="owner.permissionTypeId" style="min-width: 100px;"
+                          :text=" getPermissionTypeName(owner) " style="min-width: 100px;"
                           :disabled="owner.permissionTypeId === 'OWNER'">
                 <b-dropdown-item v-for="permissionType in permissionTypes" :key="permissionType.id" href="#"
                                  v-on:click="owner.saved = false; owner.permissionTypeId = permissionType.id"
@@ -85,6 +84,15 @@ export default {
     }
   },
   methods: {
+    getPermissionTypeName({permissionTypeId}) {
+      const permissionType = this.getPermissionType({permissionTypeId});
+      if (permissionType) {
+        return permissionType.name;
+      }
+    },
+    getPermissionType({permissionTypeId}) {
+      return this.$store.getters["sharing/getPermissionType"]({clientId: this.clientId, id: permissionTypeId});
+    },
     getOwnerName({ownerId, ownerType}) {
       if (ownerType === "group") {
         const group = this.$store.getters["group/getGroup"]({clientId: this.clientId, groupId: ownerId});
