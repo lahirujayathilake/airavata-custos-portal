@@ -111,7 +111,7 @@ import TenantHome from "./TenantHome";
 import {custosService} from "../../store/util/custos.util";
 import TableOverlayInfo from "../overlay/table-overlay-info";
 import ButtonCopy from "../button/button-copy";
-import ButtonDeleteAfterConfirmation from "@/lib/components/button/button-delete-after-confirmation";
+import ButtonDeleteAfterConfirmation from "../button/button-delete-after-confirmation";
 
 export default {
   name: "ListTenants",

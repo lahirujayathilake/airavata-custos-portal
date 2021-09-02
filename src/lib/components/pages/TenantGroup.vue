@@ -52,7 +52,7 @@ import TenantHome from "./TenantHome";
 import store from "../../store";
 import TableOverlayInfo from "../overlay/table-overlay-info";
 import ModalSelectUsersOrGroups from "../modals/modal-select-users-or-groups";
-import ButtonDeleteAfterConfirmation from "@/lib/components/button/button-delete-after-confirmation";
+import ButtonDeleteAfterConfirmation from "../button/button-delete-after-confirmation";
 
 export default {
   name: "TenantGroup",

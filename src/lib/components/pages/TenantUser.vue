@@ -154,7 +154,6 @@ import {
   VALIDATION_REGEX_FIRST_NAME,
   VALIDATION_REGEX_LAST_NAME
 } from "../../../components/validation-regex";
-// import TableOverlayInfo from "@/components/table-overlay-info";
 
 export default {
   name: "TenantUser",

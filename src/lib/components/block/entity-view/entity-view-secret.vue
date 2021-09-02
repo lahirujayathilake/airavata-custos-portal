@@ -89,8 +89,8 @@
 
 <script>
 import store from "../../../store";
-import ButtonView from "@/lib/components/button/button-view";
-import ButtonCopy from "@/lib/components/button/button-copy";
+import ButtonView from "../../button/button-view";
+import ButtonCopy from "../../button/button-copy";
 
 export default {
   name: "entity-view-secret",
