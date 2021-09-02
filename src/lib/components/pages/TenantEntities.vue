@@ -126,10 +126,10 @@
 import store from "../../store"
 import TenantHome from "./TenantHome";
 import TableOverlayInfo from "../overlay/table-overlay-info";
-import ModalShareEntity from "@/lib/components/modals/modal-share-entity";
-import ButtonOverlay from "@/lib/components/overlay/button-overlay";
-import ButtonCopy from "@/lib/components/button/button-copy";
-import ButtonDeleteAfterConfirmation from "@/lib/components/button/button-delete-after-confirmation";
+import ModalShareEntity from "../modals/modal-share-entity";
+import ButtonOverlay from "../overlay/button-overlay";
+import ButtonCopy from "../button/button-copy";
+import ButtonDeleteAfterConfirmation from "../button/button-delete-after-confirmation";
 
 export default {
   name: "TenantEntities",
