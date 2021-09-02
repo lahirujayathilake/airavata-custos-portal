@@ -24,10 +24,11 @@
             <b-td>{{ permissionType.description }}</b-td>
             <b-td>
               <button-overlay :show="processingDelete[permissionType.id]">
-                <b-button variant="link" size="sm" v-on:click="onClickDelete(permissionType)" v-b-tooltip.hover
-                          title="Delete" :disabled="disabledPermissionType[permissionType.id]">
+                <button-delete-after-confirmation variant="link" size="sm" v-on:click="onClickDelete(permissionType)"
+                                                  v-b-tooltip.hover title="Delete"
+                                                  :disabled="disabledPermissionType[permissionType.id]">
                   <b-icon icon="trash"></b-icon>
-                </b-button>
+                </button-delete-after-confirmation>
               </button-overlay>
             </b-td>
           </b-tr>
@@ -43,11 +44,12 @@ import store from "../../store";
 import TableOverlayInfo from "../overlay/table-overlay-info";
 import ButtonOverlay from "../overlay/button-overlay";
 import ButtonCopy from "../button/button-copy";
+import ButtonDeleteAfterConfirmation from "@/lib/components/button/button-delete-after-confirmation";
 
 export default {
   name: "TenantPermissionTypes",
   store: store,
-  components: {ButtonCopy, ButtonOverlay, TableOverlayInfo, TenantHome},
+  components: {ButtonDeleteAfterConfirmation, ButtonCopy, ButtonOverlay, TableOverlayInfo, TenantHome},
   data() {
     return {
       processingDelete: {},
