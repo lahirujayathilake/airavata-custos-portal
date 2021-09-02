@@ -31,9 +31,10 @@
             <b-td>{{ group.ownerId }}</b-td>
             <b-td>
               <button-overlay :show="processingDelete[group.groupId]">
-                <b-button variant="link" v-on:click="onDeleteClick(group)" v-b-tooltip.hover title="Delete">
+                <button-delete-after-confirmation variant="link" v-on:click="onDeleteClick(group)" v-b-tooltip.hover
+                                                  title="Delete">
                   <b-icon icon="trash"></b-icon>
-                </b-button>
+                </button-delete-after-confirmation>
               </button-overlay>
             </b-td>
           </b-tr>
@@ -59,11 +60,12 @@ import TenantHome from "./TenantHome";
 import TableOverlayInfo from "../overlay/table-overlay-info";
 import ButtonOverlay from "../overlay/button-overlay";
 import ButtonCopy from "../button/button-copy";
+import ButtonDeleteAfterConfirmation from "@/lib/components/button/button-delete-after-confirmation";
 
 export default {
   name: "TenantGroups",
   store: store,
-  components: {ButtonCopy, ButtonOverlay, TableOverlayInfo, TenantHome},
+  components: {ButtonDeleteAfterConfirmation, ButtonCopy, ButtonOverlay, TableOverlayInfo, TenantHome},
   data() {
     return {
       processingDelete: {},

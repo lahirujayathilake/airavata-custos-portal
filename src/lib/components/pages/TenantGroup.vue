@@ -25,10 +25,10 @@
             <b-td>
               <b-overlay :show="processingRemoveUser[user.username]"
                          rounded spinner-small spinner-variant="primary" class="d-inline-block">
-                <b-button variant="link" size="sm" v-on:click="onRemoveUser(user)"
-                          :disabled="user.membershipType === 'OWNER'">
+                <button-delete-after-confirmation variant="link" size="sm" v-on:click="onRemoveUser(user)"
+                                                  :disabled="user.membershipType === 'OWNER'">
                   <b-icon icon="trash"/>
-                </b-button>
+                </button-delete-after-confirmation>
               </b-overlay>
             </b-td>
           </b-tr>
@@ -52,10 +52,11 @@ import TenantHome from "./TenantHome";
 import store from "../../store";
 import TableOverlayInfo from "../overlay/table-overlay-info";
 import ModalSelectUsersOrGroups from "../modals/modal-select-users-or-groups";
+import ButtonDeleteAfterConfirmation from "@/lib/components/button/button-delete-after-confirmation";
 
 export default {
   name: "TenantGroup",
-  components: {ModalSelectUsersOrGroups, TableOverlayInfo, TenantHome},
+  components: {ButtonDeleteAfterConfirmation, ModalSelectUsersOrGroups, TableOverlayInfo, TenantHome},
   store: store,
   data() {
     return {

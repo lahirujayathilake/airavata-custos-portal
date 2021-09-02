@@ -64,10 +64,10 @@
               <b-td>
                 <b-overlay :show="processingDelete[childTenant.clientId]" v-if="childTenant.status === 'REQUESTED'"
                            rounded spinner-small spinner-variant="primary" class="d-inline-block">
-                  <b-button variant="link" size="sm" v-on:click="deleteTenant(childTenant)" v-b-tooltip.hover
-                            title="Delete">
+                  <button-delete-after-confirmation variant="link" size="sm" v-on:click="deleteTenant(childTenant)"
+                                                    v-b-tooltip.hover title="Delete">
                     <b-icon icon="trash"></b-icon>
-                  </b-button>
+                  </button-delete-after-confirmation>
                 </b-overlay>
               </b-td>
             </b-tr>
@@ -111,11 +111,12 @@ import TenantHome from "./TenantHome";
 import {custosService} from "../../store/util/custos.util";
 import TableOverlayInfo from "../overlay/table-overlay-info";
 import ButtonCopy from "../button/button-copy";
+import ButtonDeleteAfterConfirmation from "@/lib/components/button/button-delete-after-confirmation";
 
 export default {
   name: "ListTenants",
   store: store,
-  components: {ButtonCopy, TableOverlayInfo, TenantHome},
+  components: {ButtonDeleteAfterConfirmation, ButtonCopy, TableOverlayInfo, TenantHome},
   data() {
     return {
       processingDelete: {},

@@ -93,11 +93,11 @@
                   <div>
                     <!-- Delete Entity Button -->
                     <button-overlay :show="processingDelete[entityId]">
-                      <b-button variant="link" size="sm" v-on:click="onClickDelete(entityMap[entityId])"
-                                v-b-tooltip.hover
-                                title="Delete">
+                      <button-delete-after-confirmation variant="link" size="sm"
+                                                        v-on:click="onClickDelete(entityMap[entityId])"
+                                                        v-b-tooltip.hover title="Delete">
                         <b-icon icon="trash"></b-icon>
-                      </b-button>
+                      </button-delete-after-confirmation>
                     </button-overlay>
                   </div>
                 </div>
@@ -129,11 +129,19 @@ import TableOverlayInfo from "../overlay/table-overlay-info";
 import ModalShareEntity from "@/lib/components/modals/modal-share-entity";
 import ButtonOverlay from "@/lib/components/overlay/button-overlay";
 import ButtonCopy from "@/lib/components/button/button-copy";
+import ButtonDeleteAfterConfirmation from "@/lib/components/button/button-delete-after-confirmation";
 
 export default {
   name: "TenantEntities",
   store: store,
-  components: {ButtonCopy, ButtonOverlay, ModalShareEntity, TableOverlayInfo, TenantHome},
+  components: {
+    ButtonDeleteAfterConfirmation,
+    ButtonCopy,
+    ButtonOverlay,
+    ModalShareEntity,
+    TableOverlayInfo,
+    TenantHome
+  },
   data() {
     return {
       processingDelete: {},
