@@ -24,15 +24,21 @@
 </template>
 
 <script>
-import ButtonOverlay from "@/lib/components/overlay/button-overlay";
+import ButtonOverlay from "../overlay/button-overlay";
 
 export default {
   name: "button-delete-after-confirmation",
   components: {ButtonOverlay},
   props: {
-    variant: {},
-    size: {},
-    disabled: {},
+    variant: {
+      default: "default"
+    },
+    size: {
+      default: ""
+    },
+    disabled: {
+      default: false
+    },
     title: {}
   },
   data() {
