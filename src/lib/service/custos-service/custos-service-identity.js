@@ -117,7 +117,7 @@ export default class CustosIdentity {
         const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization();
         return axiosInstance.post(
             `${CustosService.ENDPOINTS.IDENTITY}/token`,
-            {'refresh_token': this.custosService.refreshToken, 'grant_type': 'refresh_token'}
+            {'refresh_token': this.custosService.identity.refreshToken, 'grant_type': 'refresh_token'}
         ).then(this._saveTokenResponse.bind(this));
     }
 
