@@ -188,7 +188,7 @@ export default class CustosService {
     }
 
     get axiosInstanceWithTokenAuthorization() {
-        return axios.create({
+        const instance = axios.create({
             httpAgent,
             httpsAgent,
             baseURL: this.baseURL,
@@ -199,5 +199,22 @@ export default class CustosService {
                 'Authorization': `Bearer ${this.identity.accessToken}`
             }
         });
+
+        instance.interceptors.response.use(response => {
+            return response;
+        }, async error => {
+            const {config, response: {status}} = error;
+            const originalRequest = config;
+
+            if (status >= 0) {
+                await this.identity.getTokenUsingRefreshToken();
+                originalRequest.headers['Authorization'] = `Bearer ${this.identity.accessToken}`;
+                return axios(originalRequest);
+            } else {
+                return Promise.reject(error);
+            }
+        });
+
+        return instance;
     }
 }

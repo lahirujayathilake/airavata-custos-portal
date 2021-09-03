@@ -107,13 +107,21 @@ const getters = {
         }
     },
     isAdmin(state, getters) {
-        let {realm_access: {roles}} = decode(getters.accessToken);
-        return roles.indexOf("admin")
+        try {
+            let {realm_access: {roles}} = decode(getters.accessToken);
+            return roles.indexOf("admin") >= 0;
+        } catch (err) {
+            return false;
+        }
     },
     currentUsername(state, getters) {
         if (getters.accessToken) {
-            let {preferred_username} = decode(getters.accessToken);
-            return preferred_username;
+            try {
+                let {preferred_username} = decode(getters.accessToken);
+                return preferred_username;
+            } catch (err) {
+                return null
+            }
         } else {
             return null
         }
