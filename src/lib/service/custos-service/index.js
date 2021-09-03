@@ -206,7 +206,7 @@ export default class CustosService {
             const {config, response: {status}} = error;
             const originalRequest = config;
 
-            if (status >= 0) {
+            if (status >= 400) {
                 await this.identity.getTokenUsingRefreshToken();
                 originalRequest.headers['Authorization'] = `Bearer ${this.identity.accessToken}`;
                 return axios(originalRequest);
