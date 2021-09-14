@@ -25,9 +25,11 @@ export default class CustosEntities {
         return this._secrets;
     }
 
-    async createEntity({clientId, entityId, parentId, name, description, type, ownerId, fullText, binaryData}) {
+    async createEntity({clientId, entityId, parentId, name, description, type, ownerId, fullText, binaryData, secretType, password}) {
         if (type === "SECRET") {
-            entityId = await this.custosService.entities.secrets.createSecret({clientId, description, ownerId})
+            entityId = await this.custosService.entities.secrets.createSecret({
+                type: secretType, clientId, description, ownerId, password
+            })
         }
 
         const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});

@@ -1,5 +1,7 @@
 import CustosService from "../index";
 import CustosServiceEntitiesSecretsSSH from "./custos-service-entities-secrets-ssh";
+import CustosServiceEntitiesSecretsPassword
+    from "@/lib/service/custos-service/custos-service-entities/custos-service-entities-secrets-password";
 
 export default class CustosServiceEntitiesSecrets {
     /**
@@ -12,31 +14,36 @@ export default class CustosServiceEntitiesSecrets {
      */
     _ssh = null;
 
+    /**
+     * @type {CustosServiceEntitiesSecretsPassword}
+     */
+    _password = null;
+
     constructor(custosService) {
         this._custosService = custosService;
         this._ssh = new CustosServiceEntitiesSecretsSSH(this.custosService)
+        this._password = new CustosServiceEntitiesSecretsPassword(this.custosService)
     }
 
     get custosService() {
         return this._custosService;
     }
 
-    get ssh() {
-        return this._ssh;
-    }
-
     getSecretModel({type}) {
         if (type === "SSH") {
-            return this.ssh;
+            return this._ssh;
+        } else if (type === "PASSWORD") {
+            return this._password;
         }
     }
 
-    async createSecret({clientId, description, ownerId, type = "SSH"}) {
-        return this.getSecretModel({type}).createSecret({clientId, description, ownerId});
+    async createSecret({type, clientId, description, ownerId, password}) {
+        return this.getSecretModel({type}).createSecret({clientId, description, ownerId, password});
     }
 
-    async getSecret({clientId, entityId, type = "SSH"}) {
-        return this.getSecretModel({type}).getSecret({clientId, entityId});
+    async getSecret({clientId, entityId}) {
+        const secretMetaData = await this.getSecretMetadata({clientId, entityId});
+        return this.getSecretModel({type: secretMetaData.type}).getSecret({clientId, entityId});
     }
 
     async getSecretMetadata({clientId, entityId = []}) {
