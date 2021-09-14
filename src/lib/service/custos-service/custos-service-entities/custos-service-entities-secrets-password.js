@@ -32,7 +32,6 @@ export default class CustosServiceEntitiesSecretsPassword {
     }
 
     async getSecret({clientId, entityId}) {
-        console.log("PASSWORD get")
         const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
         const {data} = await axiosInstance.get(
             `${CustosService.ENDPOINTS.SECRETS}/secret/password`,
