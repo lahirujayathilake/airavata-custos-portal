@@ -1,5 +1,6 @@
 <template>
-  <TenantHome :title="this.parentId?'New Child Entity':'New Entity'" :breadcrumb-links="breadcrumbLinks" :errors="errors">
+  <TenantHome :title="this.parentId?'New Child Entity':'New Entity'" :breadcrumb-links="breadcrumbLinks"
+              :errors="errors">
     <template #header-right>
       <b-button variant="primary" v-on:click="create">Create</b-button>
     </template>
@@ -74,6 +75,17 @@
             </b-form-radio-group>
           </div>
 
+          <div class="pt-3" v-if="secretType === 'Password'">
+            <label class="form-label" for="password">Password</label>
+            <b-form-input
+                v-model="password"
+                :state="inputState.password"
+                id="password"
+                type="password"
+                size="sm">
+            </b-form-input>
+          </div>
+
         </div>
       </div>
     </b-overlay>
@@ -99,18 +111,27 @@ export default {
       entityTypeId: null,
       secretType: "SSH",
 
-      availableSecretTypes: ["SSH"],
+      password: null,
 
-      inputFieldsList: ["name", "description", "entityTypeId"]
+      availableSecretTypes: ["SSH", "PASSWORD"]
     };
   },
   computed: {
+    inputFieldsList() {
+      if (this.entityTypeId === "SECRET") {
+        if (this.secretType === "PASSWORD") {
+          return ["name", "description", "entityTypeId", "secretType", "password"]
+        } else {
+          return ["name", "description", "entityTypeId", "secretType"]
+        }
+      } else {
+        return ["name", "description", "entityTypeId"];
+      }
+    },
     clientId() {
-      console.log("this.$route.params : ", this.$route.params);
       return this.$route.params.clientId;
     },
-    parentId(){
-      console.log("this.$route.query: ", this.$route.query);
+    parentId() {
       return this.$route.query.entityId;
     },
     inputState() {
@@ -118,13 +139,17 @@ export default {
         name: this.name === null ? null : this.isValid.name,
         description: this.description === null ? null : this.isValid.description,
         entityTypeId: this.entityTypeId === null ? null : this.isValid.entityTypeId,
+        password: this.password === null ? null : this.isValid.password,
+        secretType: this.secretType === null ? null : this.isValid.secretType,
       }
     },
     isValid() {
       return {
         name: !!this.name && this.name.length >= 2,
         description: true,
-        entityTypeId: !!this.entityTypeId
+        entityTypeId: !!this.entityTypeId,
+        password: !!this.password,
+        secretType: !!this.secretType
       }
     },
     isFormValid() {
@@ -165,7 +190,9 @@ export default {
             name: this.name,
             description: this.description,
             type: this.entityTypeId,
-            ownerId: this.$store.getters["auth/currentUsername"]
+            ownerId: this.$store.getters["auth/currentUsername"],
+            secretType: this.secretType,
+            password: this.password
           });
           await this.$router.push(`/tenants/${this.clientId}/entities`);
         } catch (error) {
