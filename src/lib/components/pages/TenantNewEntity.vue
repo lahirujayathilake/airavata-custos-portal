@@ -75,7 +75,7 @@
             </b-form-radio-group>
           </div>
 
-          <div class="pt-3" v-if="secretType === 'Password'">
+          <div class="pt-3" v-if="secretType === 'PASSWORD'">
             <label class="form-label" for="password">Password</label>
             <b-form-input
                 v-model="password"
