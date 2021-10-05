@@ -1,7 +1,6 @@
 import CustosService from "../index";
 import CustosServiceEntitiesSecretsSSH from "./custos-service-entities-secrets-ssh";
-import CustosServiceEntitiesSecretsPassword
-    from "@/lib/service/custos-service/custos-service-entities/custos-service-entities-secrets-password";
+import CustosServiceEntitiesSecretsPassword from "./custos-service-entities-secrets-password";
 
 export default class CustosServiceEntitiesSecrets {
     /**
