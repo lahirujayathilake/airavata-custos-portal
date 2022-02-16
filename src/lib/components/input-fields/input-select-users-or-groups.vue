@@ -48,17 +48,6 @@ export default {
 
       return _typeheadData;
     },
-    // typeheadDataSerializer() {
-    //   return (obj) => {
-    //     console.log("typeheadDataSerializer", obj)
-    //     if (obj.username) {
-    //       return obj.username;
-    //     } else {
-    //       // return obj.name;
-    //       return `<small>GROUP </small> ${obj.name}`;
-    //     }
-    //   };
-    // },
     users() {
       if (this.allowUsers) {
         return this.$store.getters["user/getUsers"]({

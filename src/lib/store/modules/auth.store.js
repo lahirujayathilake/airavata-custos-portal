@@ -31,7 +31,6 @@ const actions = {
             url += `&kc_idp_hint=oidc`;
         }
 
-        console.log("CI LOGON : ", url);
         window.location.href = url;
     },
     async authenticateUsingCode({commit}, {code}) {

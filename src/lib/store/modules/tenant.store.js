@@ -17,19 +17,12 @@ const state = getDefaultState();
 const actions = {
     async fetchTenantSecret({commit}, {clientId}) {
         const clientSecret = await custosService.identity.getClientSecret({clientId});
-        console.log("STORE : fetchTenantSecret ", clientSecret);
 
         commit('SET_TENANT_SECRET', {clientId, clientSecret});
     },
     async fetchTenants({commit, rootGetters}, {limit, offset, status, requesterEmail, parentTenantId, parentClientId}) {
         const params = {limit, offset, status, requesterEmail, parentTenantId, parentClientId};
-
-        console.log("STORE : fetchTenants ", params);
         const queryString = JSON.stringify(params);
-
-        // const username = rootGetters["auth/currentUsername"];
-        // await dispatch("user/fetchUsers", {username}, {root: true});
-        // const requesterEmail = rootGetters["user/getUser"]({username}).email;
 
         let {tenant, total_num_of_tenants} = await custosService.tenants.fetchTenants(params);
         const tenantIds = tenant.map(({tenant_id, tenant_status, client_name, domain, client_id, parent_tenant_id, admin_username, requester_email}) => {
@@ -71,12 +64,7 @@ const actions = {
 
     async fetchTenant({commit, rootGetters}, {clientId}) {
         let tenant = await custosService.tenants.fetchTenant({clientId});
-        console.log("----- fetchTenant : ", tenant);
-//         admin_email: "hasithanjo2work@gmail.com"
-// admin_first_name: "Hasitha"
-// admin_last_name: "Jayasundara"
-// admin_password: ""
-// admin_username: "hasithanjo2work@gmail.com"
+
         const {
             admin_username, admin_first_name, admin_last_name, admin_email,
             tenant_id, tenant_status, client_name, domain,
@@ -278,10 +266,9 @@ const getters = {
     getTenants(state, getters) {
         return ({limit, offset, status, requesterEmail, parentTenantId, parentClientId}) => {
             const queryString = JSON.stringify({limit, offset, status, requesterEmail, parentTenantId, parentClientId});
-            console.log("###### getTenants : ", queryString)
             if (state.tenantsListMap[queryString]) {
                 const r = state.tenantsListMap[queryString].map(tenantId => getters.getTenant({tenantId}));
-                console.log("getTenants ==== ", r)
+
                 return r
             } else {
                 return null;

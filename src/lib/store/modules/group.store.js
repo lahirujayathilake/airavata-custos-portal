@@ -158,7 +158,6 @@ const getters = {
     getGroups(state, getters) {
         return ({offset = 0, limit = 50, groupId = null, tenantId = null, clientId = null, username} = {}) => {
             const queryString = JSON.stringify({offset, limit, groupId, tenantId, clientId, username});
-            console.log("getGroups : ", queryString);
             if (state.groupListMap[queryString]) {
                 return state.groupListMap[queryString].map(groupId => getters.getGroup({groupId}));
             } else {

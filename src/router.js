@@ -215,25 +215,11 @@ export default new Router({
     ]
 })
 
-// async function validate(next) {
-//     if (await store.getters["auth/authenticated"] === true) {
-//         // You can use store variable here to access globalError or commit mutation
-//         console.log("Authenticationed")
-//         next(true)
-//     } else {
-//         console.log("NOT Authenticationed")
-//         next('/')
-//     }
-// }
-
 async function _validateAuthenticationBeforeEnter(to, from, next) {
     await store.dispatch('auth/refreshAuthentication');
     const authenticated = store.getters['auth/authenticated'];
 
-
-    console.log("store ", store)
     if (!authenticated) {
-        console.log("NOT authenticated");
         // next(true);
         next('/');
     } else {
@@ -247,19 +233,6 @@ async function _validateAuthenticationBeforeEnter(to, from, next) {
             await store.dispatch("tenant/fetchTenant", {clientId: custosService.clientId});
         }
 
-        console.log("YES authenticated " + store.getters["user/getUser"]({username}));
         next(true);
     }
 }
-
-// async function _validateSuperAdminAuthenticationBeforeEnter(to, from, next) {
-//     await _validateAuthenticationBeforeEnter(to, from, async (nextArg) => {
-//         await store.dispatch("tenant/fetchTenant", {clientId: custosService.clientId});
-//         const appTenant = store.getters["tenant/getTenant"]({clientId: custosService.clientId});
-//
-//         // const username = store.getters["auth/currentUsername"];
-//
-//         console.log("@@@@@@@@ appTenant : ", appTenant);
-//         next(nextArg);
-//     });
-// }

@@ -97,8 +97,6 @@ export default class CustosGroups {
      * @return {Promise<AxiosResponse<any>>}
      */
     getAllGroups({offset = 0, limit = 50, groupId = null, tenantId = null, clientId = null, username} = {}) {
-        console.log("sfsdfsdf", {offset, limit, groupId, tenantId, clientId})
-
         if (username) {
             return this.custosService.axiosInstanceWithTokenAuthorization.get(
                 `${CustosService.ENDPOINTS.GROUPS}/user/group/memberships`,

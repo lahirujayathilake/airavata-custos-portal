@@ -91,7 +91,6 @@ export default {
       }
     },
     clientId() {
-      console.log("this.$route.params : ", this.$route.params);
       return this.$route.params.clientId;
     },
     breadcrumbLinks() {

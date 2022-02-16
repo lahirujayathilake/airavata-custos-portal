@@ -95,7 +95,6 @@ export default class CustosUsers {
      * @return {Promise<AxiosResponse<any>>}
      */
     addUserAttribute({clientId, attributes, usernames}) {
-        console.log("addUserAttribute : ", {clientId, attributes, usernames});
         return this.custosService.axiosInstanceWithTokenAuthorization.post(
             `${CustosService.ENDPOINTS.USERS}/attributes`,
             {
@@ -134,8 +133,6 @@ export default class CustosUsers {
      * @return {Promise<AxiosResponse<any>>}
      */
     async addRolesToUser({clientId, roles, usernames, clientLevel = false}) {
-        // const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
-        console.log(" addRolesToUser ", {clientId, roles, usernames, clientLevel});
         const axiosInstance = await this.custosService.axiosInstanceWithTokenAuthorization;
         return axiosInstance.post(
             `${CustosService.ENDPOINTS.USERS}/users/roles`,
