@@ -177,7 +177,6 @@ const mutations = {
 const getters = {
     getUser: (state) => ({clientId, username}) => {
         if (state.userMap[clientId] && state.userMap[clientId][username]) {
-            console.log("####### state.userMap[username] : ", state.userMap[clientId][username])
             return state.userMap[clientId][username];
         } else {
             return null;
@@ -187,7 +186,6 @@ const getters = {
         return ({username = null, offset = 0, limit = 10, groupId = null, tenantId = null, clientId = null}) => {
             const params = {username, offset, limit, groupId, tenantId, clientId};
             const queryString = JSON.stringify(params);
-            console.log("######## getUsers ", queryString)
             if (state.userListMap[clientId] && state.userListMap[clientId][queryString]) {
                 const usernames = state.userListMap[clientId][queryString];
                 return usernames.map(username => getters.getUser({clientId, username}));

@@ -46,7 +46,6 @@ const actions = {
     },
     async fetchEntityTypes({commit}, {clientId}) {
         const entityTypes = await custosService.sharing.getEntityTypes({clientId});
-        console.log("##### fetchEntityTypes : ", entityTypes);
         const entityTypeIds = entityTypes.map(({id, name, description}) => {
             commit('SET_ENTITY_TYPE', {clientId, id, name, description});
 

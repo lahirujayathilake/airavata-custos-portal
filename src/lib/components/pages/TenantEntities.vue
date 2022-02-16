@@ -159,7 +159,6 @@ export default {
   },
   computed: {
     clientId() {
-      console.log("this.$route.params : ", this.$route.params);
       return this.$route.params.clientId;
     },
     allEntities() {
@@ -196,8 +195,6 @@ export default {
           }
         }
       }
-
-      console.log("this.entityIds : ", entityIds);
 
       this.entityIds = entityIds;
       this.entityMap = entityMap;

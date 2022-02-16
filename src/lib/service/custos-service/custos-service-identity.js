@@ -122,7 +122,6 @@ export default class CustosIdentity {
     }
 
     getClientSecret({clientId}) {
-        console.log("##### getClientSecret :  ", clientId);
         return this.custosService.axiosInstanceWithTokenAuthorization.get(
             `${CustosService.ENDPOINTS.IDENTITY}/credentials`,
             {

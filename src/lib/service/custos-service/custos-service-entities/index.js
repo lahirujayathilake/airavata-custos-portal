@@ -99,9 +99,7 @@ export default class CustosEntities {
                 "client_id": clientId,
                 "owner_id": ownerId
             }
-            // ).then(({data: entity_array}) => entity_array);
         ).then((res) => {
-            console.log(" $$$$$$$ getEntities ", res);
             return res.data.entity_array;
         });
     }

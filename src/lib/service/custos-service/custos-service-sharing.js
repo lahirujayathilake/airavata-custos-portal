@@ -95,8 +95,6 @@ export default class CustosSharing {
             }
         ).then(({data: {shared_data}}) => shared_data);
 
-        console.log(" res : ", res);
-
         return res;
     }
 
