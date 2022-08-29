@@ -18,6 +18,8 @@
     "bootstrap-vue": "^2.16.0",
     "core-js": "^3.6.5",
     "dotenv": "16.0.1",
+    "dotenv-webpack": "^8.0.1",
+    "fs": "^0.0.1-security",
     "jwt-decode": "^3.0.0-beta.2",
     "qs": "^6.9.4",
     "vue": "^2.6.11",
@@ -33,9 +35,9 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11",
     "node-sass": "^5.0.0",
-    "sass-loader": "10.1.1"
+    "sass-loader": "10.1.1",
+    "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
     "root": true,
