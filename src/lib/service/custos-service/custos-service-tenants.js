@@ -1,5 +1,5 @@
 import CustosService from "./index";
-import config from "@/config";
+import config from "../../../config";
 
 export default class CustosTenants {
     /**
