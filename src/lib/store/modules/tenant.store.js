@@ -1,5 +1,5 @@
 import {custosService} from "../util/custos.util";
-import config from "@/config";
+import config from "../../../config";
 
 const getDefaultState = () => {
     return {
