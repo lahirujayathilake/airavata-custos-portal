@@ -15,7 +15,7 @@ export default class CustosTenants {
         return this._custosService;
     }
 
-    fetchTenants({limit, offset, status, parentTenantId, parentClientId, parentClientSecret, requesterEmail}) {
+    fetchTenants({limit, offset, parentClientId, requesterEmail}) {
         let url = `${CustosService.ENDPOINTS.TENANTS}/tenants`
         const params = {
             limit: limit,
