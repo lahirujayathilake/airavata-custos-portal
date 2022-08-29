@@ -11,6 +11,9 @@ import ciLogon from "../modules/ci-logon.store";
 import createLogger from "vuex/dist/logger";
 
 export function createCustosStore(vuex = Vuex, vue = Vue) {
+    console.log("vue : ", vue);
+    console.log("vuex : ", vuex);
+
     vue.use(vuex);
 
     const debug = process.env.NODE_ENV !== 'production';
