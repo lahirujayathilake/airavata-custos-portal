@@ -7,8 +7,9 @@
     </div>
     <div class="w-100">
       <div style="flex: 1;padding: 10px 20px;">
-        <div class="w-100">
-          <p>The website is currently under maintenance. Please contact us for any questions.</p>
+        <div class="w-100 text-center" style="font-size: 20px;">
+          <b-icon icon="info-circle-fill" class="text-warning" style="font-size: 50px;"/>
+          <p>The website is currently under maintenance. Please contact us for tenant creations or any other questions.</p>
           <a href="mailto:circ-iu-group@iu.edu">circ-iu-group@iu.edu</a>
         </div>
       </div>
