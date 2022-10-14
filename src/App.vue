@@ -2,7 +2,8 @@
   <div id="app">
     <Header/>
     <div class="w-100" id="nav">
-      <router-view/>
+      <router-view v-if="!underMaintenance"/>
+      <Maintenance v-else/>
     </div>
     <Footer/>
   </div>
@@ -12,11 +13,18 @@
 import Header from "./lib/components/block/Header";
 import store from "./lib/store";
 import Footer from "./lib/components/block/Footer";
+import Maintenance from "@/lib/components/pages/Maintenance";
+import config from "./config";
 
 export default {
   name: 'App',
   store: store,
-  components: {Footer, Header},
+  components: {Maintenance, Footer, Header},
+  data() {
+    return {
+      underMaintenance: false
+    }
+  },
   methods: {
     redirectToLoginIfNotAuthenticated() {
       if (!this.authenticated && this.$router.currentRoute.path !== "/") {
@@ -34,8 +42,10 @@ export default {
     currentUsername: () => store.getters["auth/currentUsername"]
   },
   mounted() {
-    this.redirectToLoginIfNotAuthenticated()
-    // this.$store.dispatch("user/fetchUsers", {username: this.currentUsername});
+    this.underMaintenance = config.value('underMaintenance');
+    if (!this.underMaintenance) {
+      this.redirectToLoginIfNotAuthenticated();
+    }
   }
 }
 </script>

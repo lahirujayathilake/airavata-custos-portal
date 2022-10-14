@@ -8,7 +8,7 @@ import tenant from "../modules/tenant.store";
 import sharing from "../modules/sharing.store";
 import entity from "../modules/entity.store";
 import ciLogon from "../modules/ci-logon.store";
-import createLogger from "vuex/dist/logger";
+import {createLogger} from "vuex";
 
 export function createCustosStore(vuex = Vuex, vue = Vue) {
     vue.use(vuex);
