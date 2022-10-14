@@ -62,8 +62,8 @@ const actions = {
     },
     async fetchSharedOwners({commit}, {clientId, entityId}) {
         let entitySharedUsersList = await custosService.sharing.getSharedOwners({clientId, entityId});
-        entitySharedUsersList = entitySharedUsersList.map(({owner_id, owner_type, permission}) => {
-            return {ownerId: owner_id, ownerType: owner_type, permission: permission};
+        entitySharedUsersList = entitySharedUsersList.map(({owner_id, owner_type, permissions}) => {
+            return {ownerId: owner_id, ownerType: owner_type, permissions: permissions};
         });
         commit('SET_ENTITY_SHARED_USERS_LIST_MAP', {entityId, entitySharedUsersList});
     },
