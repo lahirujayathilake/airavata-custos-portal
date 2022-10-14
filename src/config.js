@@ -8,7 +8,8 @@ export default class Configuration {
             clientSec: '$VUE_APP_CLIENT_SEC',
             redirectURI: '$VUE_APP_REDIRECT_URI',
             custosApiUrl: '$VUE_APP_CUSTOS_API_URL',
-            superClientId: '$VUE_APP_SUPER_CLIENT_ID'
+            superClientId: '$VUE_APP_SUPER_CLIENT_ID',
+            underMaintenance: '$VUE_APP_UNDER_MAINTENANCE'
         }
     }
 
