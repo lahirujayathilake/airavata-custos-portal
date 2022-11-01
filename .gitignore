@@ -4,3 +4,5 @@ yarn-error.log
 dist
 venv
 *.pyc
+airavata_custos_portal/db.sqlite3
+.vscode
