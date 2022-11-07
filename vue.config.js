@@ -19,5 +19,8 @@ module.exports = {
   },
   devServer: {
     port,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
   },
 };
