@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG", "true") == "true"
 
-ALLOWED_HOSTS = json.loads(os.environ.get("DJANGO_ALLOWED_HOSTS", '["localhost"]'))
+ALLOWED_HOSTS = json.loads(os.environ.get("DJANGO_ALLOWED_HOSTS", "[]"))
 
 
 # Application definition
