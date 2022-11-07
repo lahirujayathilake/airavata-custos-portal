@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "airavata_custos_portal.apps.frontend",
     "airavata_custos_portal.apps.api",
     "webpack_loader",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -147,6 +148,14 @@ WEBPACK_LOADER = {
         / "webpack-stats.json",
         "TIMEOUT": 60,
     },
+}
+
+REST_FRAMEWORK = {
+    # TODO: configure authentication for the REST API
+    # "DEFAULT_AUTHENTICATION_CLASSES": (
+    #     "rest_framework.authentication.SessionAuthentication",
+    # ),
+    # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
 
 VUE_APP_CLIENT_ID = os.environ.get("VUE_APP_CLIENT_ID", "")

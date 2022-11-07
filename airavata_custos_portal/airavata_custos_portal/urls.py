@@ -18,6 +18,7 @@ from django.urls import path
 from django.conf.urls import include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('airavata_custos_portal.apps.frontend.urls')),
+    path("admin/", admin.site.urls),
+    path("api/", include("airavata_custos_portal.apps.api.urls")),
+    path("", include("airavata_custos_portal.apps.frontend.urls")),
 ]
