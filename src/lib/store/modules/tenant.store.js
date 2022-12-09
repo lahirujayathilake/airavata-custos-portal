@@ -153,20 +153,7 @@ const actions = {
 
         const {client_id, client_secret} = res.data;
 
-//         {
-//  "client_id": "custos-xj1jamrkt4smtdz3tpn6-10001501",
-//  "client_secret": "69vJnB744dWIirSaTWFrA1MHSxGmXRmkyJOwZOkv",
-//  "is_activated": true,
-//  "client_id_issued_at": 1618549123000,
-//  "client_secret_expires_at": 0,
-//  "registration_client_uri": "https://custos.scigap.org:32036/tenant-management/v1.0.0/oauth2/tenant?client_id=custos-xj1jamrkt4smtdz3tpn6-10001501",
-//  "token_endpoint_auth_method": "client_secret_basic",
-//  "msg": "Credentials are activated"
-// }
-
         return {clientId: client_id, clientSecret: client_secret}
-
-        // commit('SET_TENANT', {tenantId: client_id, status: "", clientSecret: client_secret, name: tenantName, domain});
     },
 
     async updateTenant(o, {tenantId, clientId, username, firstName, lastName, email, password, tenantName, redirectUris, scope, domain, clientUri, logoUri, comment, applicationType, requesterEmail}) {

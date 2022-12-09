@@ -26,7 +26,7 @@ export default class CustosGroups {
      * @return {Promise<AxiosResponse<any>>}
      */
     createGroup({clientId, name, description, ownerId, realm_roles, client_roles, attributes, sub_groups}) {
-        return this.custosService.axiosInstanceWithTokenAuthorization.post(
+        return this.custosService.axiosInstance.post(
             `${CustosService.ENDPOINTS.GROUPS}/group`,
             {
                 clientId: clientId,
@@ -56,7 +56,7 @@ export default class CustosGroups {
      * @return {Promise<AxiosResponse<any>>}
      */
     async updateGroup({groupId, name, description, ownerId, realm_roles, client_roles, attributes, sub_groups}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization();
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.put(
             `${CustosService.ENDPOINTS.GROUPS}/group/${groupId}`,
             {groupId, name, description, ownerId, realm_roles, client_roles, attributes, sub_groups}
@@ -98,7 +98,7 @@ export default class CustosGroups {
      */
     getAllGroups({groupId = null, clientId = null, username} = {}) {
         if (username) {
-            return this.custosService.axiosInstanceWithTokenAuthorization.get(
+            return this.custosService.axiosInstance.get(
                 `${CustosService.ENDPOINTS.GROUPS}/user/group/memberships`,
                 {
                     params: {
@@ -108,7 +108,7 @@ export default class CustosGroups {
                 }
             );
         } else {
-            return this.custosService.axiosInstanceWithTokenAuthorization.get(
+            return this.custosService.axiosInstance.get(
                 `${CustosService.ENDPOINTS.GROUPS}/groups`,
                 {
                     params: {
@@ -169,7 +169,7 @@ export default class CustosGroups {
      * @return {Promise<AxiosResponse<any>>}
      */
     async changeGroupMembership({groupId, username, membershipType}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization();
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.put(
             `${CustosService.ENDPOINTS.GROUPS}/user/group/membership`,
             {
@@ -187,7 +187,7 @@ export default class CustosGroups {
      * @return {Promise<AxiosResponse<any>>}
      */
     async addChildGroup(childGroupId, parentGroupId) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization();
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.post(
             `${CustosService.ENDPOINTS.GROUPS}/group/membership`,
             {
@@ -204,7 +204,7 @@ export default class CustosGroups {
      * @return {Promise<AxiosResponse<any>>}
      */
     async removeChildGroup({childGroupId, parentGroupId}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization();
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.delete(
             `${CustosService.ENDPOINTS.GROUPS}/group/membership`,
             {
@@ -222,7 +222,7 @@ export default class CustosGroups {
      * @return {Promise<AxiosResponse<any>>}
      */
     async getAllChildUsers({groupId}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization();
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.get(
             `${CustosService.ENDPOINTS.GROUPS}/user/group/memberships/child`,
             {
@@ -237,7 +237,7 @@ export default class CustosGroups {
      * @return {Promise<AxiosResponse<any>>}
      */
     async getAllChildGroups({groupId}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization();
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.get(
             `${CustosService.ENDPOINTS.GROUPS}/groups/memberships/child`,
             {
@@ -252,7 +252,7 @@ export default class CustosGroups {
      * @return {Promise<AxiosResponse<any>>}
      */
     async getAllGroupsOfUser({username}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization();
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.get(
             `${CustosService.ENDPOINTS.GROUPS}/user/group/memberships`,
             {
@@ -267,7 +267,7 @@ export default class CustosGroups {
      * @return {Promise<AxiosResponse<any>>}
      */
     async getAllParentGroupsOfGroup({groupId}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization();
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.get(
             `${CustosService.ENDPOINTS.GROUPS}/groups/memberships`,
             {
@@ -284,7 +284,7 @@ export default class CustosGroups {
      * @return {Promise<AxiosResponse<any>>}
      */
     async hasAccess({groupId, username, membershipType}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization();
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.get(
             `${CustosService.ENDPOINTS.GROUPS}/user/group/access`,
             {

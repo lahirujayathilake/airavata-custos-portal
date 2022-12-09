@@ -4,3 +4,4 @@ from django.shortcuts import render
 
 def home(request):
     return render(request, "airavata_custos_portal_frontend/index.html")
+

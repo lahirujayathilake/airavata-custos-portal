@@ -15,7 +15,7 @@ export default class CustosUsers {
     }
 
     async registerUser({username, firstName, lastName, password, email}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization();
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.post(
             `${CustosService.ENDPOINTS.USERS}/user`,
             {
@@ -51,7 +51,7 @@ export default class CustosUsers {
     }
 
     async checkUsernameValidity({username}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization();
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.get(
             `${CustosService.ENDPOINTS.USERS}/user/availability`,
             {
@@ -62,7 +62,7 @@ export default class CustosUsers {
 
     findUsers({offset = 0, limit = 20, username = null, groupId = null, clientId = null}) {
         if (groupId) {
-            return this.custosService.axiosInstanceWithTokenAuthorization.get(
+            return this.custosService.axiosInstance.get(
                 `${CustosService.ENDPOINTS.GROUPS}/user/group/memberships/child`,
                 {
                     params: {"group.id": groupId, "client_id": clientId}
@@ -71,7 +71,7 @@ export default class CustosUsers {
                 return profiles;
             });
         } else {
-            return this.custosService.axiosInstanceWithTokenAuthorization.get(
+            return this.custosService.axiosInstance.get(
                 `${CustosService.ENDPOINTS.USERS}/users`,
                 {
                     params: {offset: offset, limit: limit, client_id: clientId, 'user.id': username}
@@ -95,7 +95,7 @@ export default class CustosUsers {
      * @return {Promise<AxiosResponse<any>>}
      */
     addUserAttribute({clientId, attributes, usernames}) {
-        return this.custosService.axiosInstanceWithTokenAuthorization.post(
+        return this.custosService.axiosInstance.post(
             `${CustosService.ENDPOINTS.USERS}/attributes`,
             {
                 client_id: clientId,
@@ -112,7 +112,7 @@ export default class CustosUsers {
      * @return {Promise<AxiosResponse<any>>}
      */
     deleteUserAttributes({clientId, attributes, usernames}) {
-        return this.custosService.axiosInstanceWithTokenAuthorization.delete(
+        return this.custosService.axiosInstance.delete(
             `${CustosService.ENDPOINTS.USERS}/attributes`,
             {
                 data: {
@@ -133,7 +133,7 @@ export default class CustosUsers {
      * @return {Promise<AxiosResponse<any>>}
      */
     async addRolesToUser({clientId, roles, usernames, clientLevel = false}) {
-        const axiosInstance = await this.custosService.axiosInstanceWithTokenAuthorization;
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.post(
             `${CustosService.ENDPOINTS.USERS}/users/roles`,
             {
@@ -152,7 +152,7 @@ export default class CustosUsers {
      * @return {Promise<AxiosResponse<any>>}
      */
     deleteRolesFromUser({clientId, roles, username, clientLevel}) {
-        return this.custosService.axiosInstanceWithTokenAuthorization.delete(
+        return this.custosService.axiosInstance.delete(
             `${CustosService.ENDPOINTS.USERS}/user/roles`,
             {
                 data: {
@@ -187,7 +187,7 @@ export default class CustosUsers {
     }
 
     async getRoles({isClientLevel = false}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization();
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.get(
             `${CustosService.ENDPOINTS.USERS}/roles`,
             {
