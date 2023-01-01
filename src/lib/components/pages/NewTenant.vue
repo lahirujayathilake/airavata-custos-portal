@@ -493,7 +493,10 @@ export default {
 
             this.newClientId = clientId;
             this.newClientSecret = clientSecret;
+
+            this.tabIndex++;
           } catch (error) {
+            this.tabIndex--;
             this.errors.push({
               title: "Unknown error when creating the tenant.",
               source: error, variant: "danger"
@@ -501,9 +504,10 @@ export default {
           }
 
           this.processing = false;
+        } else {
+          this.tabIndex++;
         }
 
-        this.tabIndex++;
       }
 
     },
