@@ -25,9 +25,8 @@ export default class CustosIdentity {
         this.changeListeners.push(changeListener);
     }
 
-    async getOpenIdConfig() {
-        const axiosInstance = await this.custosService.axiosInstance;
-        return axiosInstance.get(
+    getOpenIdConfig() {
+        return this.custosService.axiosInstance.get(
             `${CustosService.ENDPOINTS.IDENTITY}/.well-known/openid-configuration`,
             {
                 params: {'client_id': this.custosService.clientId}
@@ -35,8 +34,38 @@ export default class CustosIdentity {
         );
     }
 
+    async getToken({code}) {
+        await this.custosService.axiosInstance.post(
+            `${CustosService.ENDPOINTS.IDENTITY}/token`,
+            {'code': code, 'redirect_uri': this.custosService.redirectURI, 'grant_type': 'authorization_code'}
+        );
+
+        window.location.reload();
+    }
+
+    async localLogin({username, password}) {
+        await this.custosService.axiosInstance.post(
+            `${CustosService.ENDPOINTS.IDENTITY}/token`,
+            {'grant_type': 'password', 'username': username, 'password': password}
+        );
+
+        window.location.reload();
+    }
+
     async logout() {
-        // TODO
+        await this.custosService.axiosInstance.post(
+            `${CustosService.ENDPOINTS.IDENTITY}/user/logout`,
+            {refresh_token: this.refreshToken}
+        );
+
+        window.location.reload();
+    }
+
+    async getTokenUsingRefreshToken() {
+        await this.custosService.axiosInstance.post(
+            `${CustosService.ENDPOINTS.IDENTITY}/token`,
+            {'refresh_token': this.custosService.identity.refreshToken, 'grant_type': 'refresh_token'}
+        );
     }
 
     getClientSecret({clientId}) {

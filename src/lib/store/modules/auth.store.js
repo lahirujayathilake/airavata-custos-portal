@@ -10,29 +10,30 @@ const actions = {
     async init() {
         // TODO
     },
-    async fetchAuthorizationEndpoint(obj, {ciLogonInstitutionEntityId = null} = {}) {
-        const {clientId, redirectURI} = custosService;
+    async fetchAuthorizationEndpoint() {
         const {data: {authorization_endpoint}} = await custosService.identity.getOpenIdConfig();
-        let url = `${authorization_endpoint}?response_type=code&client_id=${clientId}&redirect_uri=${redirectURI}&scope=openid`;
 
-        if (ciLogonInstitutionEntityId) {
-            url += `&kc_idp_hint=oidc&idphint=${ciLogonInstitutionEntityId}`;
-        } else {
-            url += `&kc_idp_hint=oidc`;
-        }
-
-        window.location.href = url;
+        window.location.href = authorization_endpoint;
     },
-    async logout({commit}) {
+    async authenticateUsingCode(o, {code}) {
+        await custosService.identity.getToken({code});
+    },
+    async authenticateLocally(o, {username, password}) {
+        await custosService.identity.localLogin({
+            username, password
+        });
+    },
+    async logout() {
         await custosService.identity.logout();
-        commit("CLEAR_USERINFO");
+    },
+    async refreshAuthentication() {
+        await custosService.identity.getTokenUsingRefreshToken();
     },
     async fetchUserinfo({commit, state}) {
         if (!state.userinfo) {
             await axios.get("/api/userinfo")
                 .catch(() => commit("CLEAR_USERINFO"))
                 .then((res) => {
-                    console.log("###### userinfo res", res);
                     if (!res || !res.data) {
                         commit("CLEAR_USERINFO");
                     } else {
