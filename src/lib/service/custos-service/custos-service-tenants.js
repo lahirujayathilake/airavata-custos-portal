@@ -120,7 +120,8 @@ export default class CustosTenants {
                 "client_uri": clientUri,
                 "logo_uri": logoUri,
                 "application_type": applicationType,
-                "comment": comment
+                "comment": comment,
+                "parent_client_id": parentClientId
             }
         );
     }

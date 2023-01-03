@@ -105,6 +105,9 @@ def get_custos_api(request, endpoint_path=""):
     elif "access_token" in request.session:
         authorization_header = f"Bearer {request.session['access_token']}"
 
+    if client_auth_cases_map["tenant_create"]:
+        authorization_header = None
+
     headers = {
         'Accept': '*/*',
         'Content-Type': 'application/json',
