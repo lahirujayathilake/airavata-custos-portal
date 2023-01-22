@@ -31,14 +31,14 @@ export default class Configuration {
             // Remove $ and get current value from process.env
             const envName = value.substr(1)
 
-            // Check if the variables is set by the portal server
-            if (window.serverConfig && window.serverConfig[envName]) {
-                return window.serverConfig[envName];
-            }
+
 
             const envValue = process.env[envName]
             if (envValue) {
                 return envValue
+            } else if (window.serverConfig && window.serverConfig[envName]) {
+                // Check if the variables is set by the portal server
+                return window.serverConfig[envName];
             } else {
                 console.log(`Configuration: Environment variable "${envName}" is not defined`)
             }
