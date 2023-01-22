@@ -69,9 +69,14 @@ export default class CustosGroups {
      * @return {Promise<AxiosResponse<any>>}
      */
     async deleteGroup({clientId, groupId}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.delete(
-            `${CustosService.ENDPOINTS.GROUPS}/group/${groupId}`
+            `${CustosService.ENDPOINTS.GROUPS}/group/${groupId}`,
+            {
+                data: {
+                    client_id: clientId
+                }
+            }
         );
     }
 
@@ -81,12 +86,13 @@ export default class CustosGroups {
      * @return {Promise<AxiosResponse<any>>}
      */
     async findGroup({clientId, groupId}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.get(
             `${CustosService.ENDPOINTS.GROUPS}/group`,
             {
                 params: {
-                    "group.id": groupId
+                    "group.id": groupId,
+                    "client_id": clientId
                 }
             }
         ).then(({data}) => data);
@@ -131,13 +137,14 @@ export default class CustosGroups {
      * @return {Promise<AxiosResponse<any>>}
      */
     async addUserToGroup({clientId, groupId, username, membershipType}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.post(
             `${CustosService.ENDPOINTS.GROUPS}/user/group/membership`,
             {
                 group_id: groupId,
                 username: username,
-                membership_type: membershipType
+                membership_type: membershipType,
+                client_id: clientId
             }
         );
     }
@@ -149,13 +156,14 @@ export default class CustosGroups {
      * @return {Promise<AxiosResponse<any>>}
      */
     async removeUserFromGroup({clientId, groupId, username}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.delete(
             `${CustosService.ENDPOINTS.GROUPS}/user/group/membership`,
             {
                 data: {
                     group_id: groupId,
-                    username: username
+                    username: username,
+                    client_id: clientId
                 }
             }
         );

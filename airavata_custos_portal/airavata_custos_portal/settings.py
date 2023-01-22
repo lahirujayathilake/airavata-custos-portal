@@ -158,15 +158,3 @@ REST_FRAMEWORK = {
     # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
 
-VUE_APP_CLIENT_ID = os.environ.get("VUE_APP_CLIENT_ID", "")
-VUE_APP_CLIENT_SEC = os.environ.get("VUE_APP_CLIENT_SEC", "")
-VUE_APP_REDIRECT_URI = os.environ.get(
-    "VUE_APP_REDIRECT_URI", "http://localhost:8080/callback"
-)
-VUE_APP_CUSTOS_API_URL = os.environ.get(
-    "VUE_APP_CUSTOS_API_URL", "https://custos.scigap.org/apiserver"
-)
-VUE_APP_SUPER_CLIENT_ID = os.environ.get("VUE_APP_SUPER_CLIENT_ID", "")
-VUE_APP_UNDER_MAINTENANCE = (
-    os.environ.get("VUE_APP_UNDER_MAINTENANCE", "false") == "true"
-)

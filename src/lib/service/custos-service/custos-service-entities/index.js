@@ -32,7 +32,7 @@ export default class CustosEntities {
             })
         }
 
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         await axiosInstance.post(
             `${CustosService.ENDPOINTS.SHARING}/entity`,
             {
@@ -54,7 +54,7 @@ export default class CustosEntities {
     }
 
     async updateEntity({clientId, entityId, name, description, type, ownerId, fullText, binaryData}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.put(
             `${CustosService.ENDPOINTS.SHARING}/entity`,
             {
@@ -73,7 +73,7 @@ export default class CustosEntities {
     }
 
     async deleteEntity({clientId, entityId, name, description, type, ownerId}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.delete(
             `${CustosService.ENDPOINTS.SHARING}/entity`,
             {
@@ -92,7 +92,7 @@ export default class CustosEntities {
     }
 
     async getEntities({clientId, ownerId}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.post(
             `${CustosService.ENDPOINTS.SHARING}/entities`,
             {
@@ -105,7 +105,7 @@ export default class CustosEntities {
     }
 
     async getEntity({clientId, entityId}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         const {data} = await axiosInstance.get(
             `${CustosService.ENDPOINTS.SHARING}/entity`,
             {

@@ -13,11 +13,10 @@ import environ
 
 env = environ.Env()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-environ.Env.read_env(os.path.join(BASE_DIR, '../../.env'))
+environ.Env.read_env('.env')
 
 CUSTOS_CLIENT_ID = env("CUSTOS_CLIENT_ID")
 CUSTOS_CLIENT_SEC = env("CUSTOS_CLIENT_SEC")
-CUSTOS_REDIRECT_URI = env("CUSTOS_REDIRECT_URI")
 CUSTOS_API_URL = env("CUSTOS_API_URL")
 CUSTOS_SUPER_CLIENT_ID = env("CUSTOS_SUPER_CLIENT_ID")
 UNDER_MAINTENANCE = env("UNDER_MAINTENANCE")
@@ -36,7 +35,11 @@ ENDPOINTS = {
 @api_view()
 def get_config(request):
     # Just a simple REST API view to show how to access VUE_APP_* settings
-    return Response({"UNDER_MAINTENANCE": settings.UNDER_MAINTENANCE})
+    return Response({
+        "VUE_APP_CLIENT_ID": CUSTOS_CLIENT_ID,
+        "VUE_APP_CUSTOS_API_URL": request.build_absolute_uri('/api/custos'),
+        "VUE_APP_SUPER_CLIENT_ID": CUSTOS_SUPER_CLIENT_ID
+    })
 
 
 @api_view()
@@ -82,6 +85,7 @@ def get_client_auth_base64(request, client_id=None, client_sec=None):
 
 @api_view()
 def get_auth_callback(request):
+    CUSTOS_REDIRECT_URI = request.build_absolute_uri('/api/callback')
     code = request.GET.get("code", None)
 
     client_auth_base64 = get_client_auth_base64(request)
@@ -123,6 +127,8 @@ custos_resource_map = {
 
 @api_view(["GET", "POST", "PUT", "DELETE"])
 def get_custos_api(request, endpoint_path=""):
+    CUSTOS_REDIRECT_URI = request.build_absolute_uri('/api/callback')
+
     client_auth_base64 = get_client_auth_base64(request)
     client_auth_cases_map = {
         "token_password": endpoint_path == f"{ENDPOINTS['IDENTITY']}/token" and "grant_type" in request.data

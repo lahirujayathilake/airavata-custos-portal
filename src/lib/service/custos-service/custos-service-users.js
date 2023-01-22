@@ -31,21 +31,23 @@ export default class CustosUsers {
     }
 
     async enableUser({clientId, username}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.post(
             `${CustosService.ENDPOINTS.USERS}/user/activation`,
             {
-                'username': username
+                'username': username,
+                "client_id": clientId
             }
         );
     }
 
     async disableUser({clientId, username}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.post(
             `${CustosService.ENDPOINTS.USERS}/user/deactivation`,
             {
-                'username': username
+                'username': username,
+                'client_id': clientId
             }
         );
     }
@@ -166,14 +168,15 @@ export default class CustosUsers {
     }
 
     async updateProfile({clientId, username, firstName, lastName, email}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.put(
             `${CustosService.ENDPOINTS.USERS}/user/profile`,
             {
                 username: username,
                 first_name: firstName,
                 last_name: lastName,
-                email: email
+                email: email,
+                client_id: clientId
             }
         ).then(({data}) => data);
     }

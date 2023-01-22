@@ -37,7 +37,7 @@ export default class CustosIdentity {
     async getToken({code}) {
         await this.custosService.axiosInstance.post(
             `${CustosService.ENDPOINTS.IDENTITY}/token`,
-            {'code': code, 'redirect_uri': this.custosService.redirectURI, 'grant_type': 'authorization_code'}
+            {'code': code, 'grant_type': 'authorization_code'}
         );
 
         window.location.reload();

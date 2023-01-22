@@ -1,6 +1,5 @@
 import {custosService} from "../util/custos.util";
-import axios from "axios";
-
+import custosPortalService from "../../service/custos-portal-services";
 
 const state = {
     userinfo: null
@@ -31,13 +30,13 @@ const actions = {
     },
     async fetchUserinfo({commit, state}) {
         if (!state.userinfo) {
-            await axios.get("/api/userinfo")
+            await custosPortalService.fetchUserinfo()
                 .catch(() => commit("CLEAR_USERINFO"))
-                .then((res) => {
-                    if (!res || !res.data) {
+                .then((data) => {
+                    if (!data) {
                         commit("CLEAR_USERINFO");
                     } else {
-                        commit("SET_USERINFO", res.data);
+                        commit("SET_USERINFO", data);
                     }
                 });
         }

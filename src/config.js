@@ -5,8 +5,6 @@ export default class Configuration {
     static get CONFIG () {
         return {
             clientId: '$VUE_APP_CLIENT_ID',
-            clientSec: '$VUE_APP_CLIENT_SEC',
-            redirectURI: '$VUE_APP_REDIRECT_URI',
             custosApiUrl: '$VUE_APP_CUSTOS_API_URL',
             superClientId: '$VUE_APP_SUPER_CLIENT_ID',
             underMaintenance: '$VUE_APP_UNDER_MAINTENANCE'
@@ -32,6 +30,12 @@ export default class Configuration {
             // value was not replaced, it seems we are in development.
             // Remove $ and get current value from process.env
             const envName = value.substr(1)
+
+            // Check if the variables is set by the portal server
+            if (window.serverConfig && window.serverConfig[envName]) {
+                return window.serverConfig[envName];
+            }
+
             const envValue = process.env[envName]
             if (envValue) {
                 return envValue

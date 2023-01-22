@@ -36,13 +36,6 @@ export default class CustosService {
     _clientSecret = null;
 
     /**
-     * Api Redirect URI
-     * @type {strong}
-     * @private
-     */
-    _redirectURI = null;
-
-    /**
      * Api Base URL
      * @type {strong}
      * @private
@@ -82,10 +75,8 @@ export default class CustosService {
      */
     _entities = null;
 
-    constructor({clientId, clientSecret, redirectURI, baseURL}) {
+    constructor({clientId, baseURL}) {
         this._clientId = clientId;
-        this._clientSecret = clientSecret;
-        this._redirectURI = redirectURI;
         this._baseURL = baseURL;
         this._tenants = new CustosTenants(this);
         this._groups = new CustosGroups(this);
@@ -97,14 +88,6 @@ export default class CustosService {
 
     get clientId() {
         return this._clientId;
-    }
-
-    get clientSecret() {
-        return this._clientSecret;
-    }
-
-    get redirectURI() {
-        return this._redirectURI;
     }
 
     get baseURL() {
@@ -144,30 +127,6 @@ export default class CustosService {
             headers: {
                 'Accept': '*/*',
                 'Content-Type': 'application/json'
-            }
-        });
-    }
-
-    async getAxiosInstanceWithClientAuthorization({clientId = null, clientSecret = null} = {}) {
-        if (!clientId) {
-            clientId = this.clientId
-        }
-
-        if (clientId === this.clientId) {
-            clientSecret = this.clientSecret;
-        } else if (!clientSecret) {
-            clientSecret = await this.identity.getClientSecret({clientId});
-        }
-
-        return axios.create({
-            httpAgent,
-            httpsAgent,
-            baseURL: this.baseURL,
-            withCredentials: false,
-            headers: {
-                'Accept': '*/*',
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${btoa(`${clientId}:${clientSecret}`)}`
             }
         });
     }

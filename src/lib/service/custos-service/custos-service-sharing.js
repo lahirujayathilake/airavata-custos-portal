@@ -15,7 +15,7 @@ export default class CustosSharing {
     }
 
     async createPermissionType({clientId, id, name, description = null}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.post(
             `${CustosService.ENDPOINTS.SHARING}/permission/type`,
             {
@@ -26,7 +26,7 @@ export default class CustosSharing {
     }
 
     async deletePermissionType({clientId, id, name, description = null}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.delete(
             `${CustosService.ENDPOINTS.SHARING}/permission/type`,
             {
@@ -39,7 +39,7 @@ export default class CustosSharing {
     }
 
     async getPermissionTypes({clientId}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.get(
             `${CustosService.ENDPOINTS.SHARING}/permission/types`,
             {
@@ -49,7 +49,7 @@ export default class CustosSharing {
     }
 
     async createEntityType({clientId, id, name, description = null}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.post(
             `${CustosService.ENDPOINTS.SHARING}/entity/type`,
             {
@@ -60,7 +60,7 @@ export default class CustosSharing {
     }
 
     async deleteEntityType({clientId, id, name, description = null}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.delete(
             `${CustosService.ENDPOINTS.SHARING}/entity/type`,
             {
@@ -73,7 +73,7 @@ export default class CustosSharing {
     }
 
     async getEntityTypes({clientId}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.get(
             `${CustosService.ENDPOINTS.SHARING}/entity/types`,
             {
@@ -84,13 +84,14 @@ export default class CustosSharing {
 
     async getSharedOwners({clientId, entityId}) {
 
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
 
         const res = await axiosInstance.get(
             `${CustosService.ENDPOINTS.SHARING}/share`,
             {
                 params: {
-                    "entity.id": entityId
+                    "entity.id": entityId,
+                    "client_id": clientId
                 }
             }
         ).then(({data: {shared_data}}) => shared_data);
@@ -99,7 +100,7 @@ export default class CustosSharing {
     }
 
     async shareEntity({clientId, entityId, permissionTypeId, groupIds = [], usernames = [], sharedBy}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
 
         let promises = [];
 
@@ -135,7 +136,7 @@ export default class CustosSharing {
     }
 
     async dropEntitySharedOwner({clientId, entityId, permissionTypeId, groupIds = [], usernames = []}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
 
         let promises = [];
 
@@ -180,7 +181,7 @@ export default class CustosSharing {
         //     headers: authHeader
         // });
 
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.get(
             `${CustosService.ENDPOINTS.SHARING}/entity/user/access`,
             {

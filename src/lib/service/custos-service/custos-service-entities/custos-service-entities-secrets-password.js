@@ -15,7 +15,7 @@ export default class CustosServiceEntitiesSecretsPassword {
     }
 
     async createSecret({clientId, description, ownerId, password}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance
         const {data: {token}} = await axiosInstance.post(
             `${CustosService.ENDPOINTS.SECRETS}/secret/password`,
             {
@@ -32,7 +32,7 @@ export default class CustosServiceEntitiesSecretsPassword {
     }
 
     async getSecret({clientId, entityId}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         const {data} = await axiosInstance.get(
             `${CustosService.ENDPOINTS.SECRETS}/secret/password`,
             {
