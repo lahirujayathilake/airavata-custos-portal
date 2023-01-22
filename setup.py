@@ -22,7 +22,6 @@ setup(
     long_description_content_type='text/markdown',
     license="Apache License 2.0",
     packages=['airavata_custos_portal.apps.frontend', 'airavata_custos_portal.apps.api'],
-    package_dir={"": "airavata_custos_portal"},
     package_data={'airavata_custos_portal.apps.frontend': ['static/**/*', 'templates/**/*']},
     install_requires=[
         "Django==3.2.16",

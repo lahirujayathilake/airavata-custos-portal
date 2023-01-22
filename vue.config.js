@@ -7,13 +7,13 @@ module.exports = {
       ? `http://localhost:${port}/static/airavata_custos_portal_frontend/dist/`
       : "/static/airavata_custos_portal_frontend/dist/",
   outputDir:
-    "./airavata_custos_portal/airavata_custos_portal/apps/frontend/static/airavata_custos_portal_frontend/dist/",
+    "./airavata_custos_portal/apps/frontend/static/airavata_custos_portal_frontend/dist/",
   configureWebpack: {
     plugins: [
       new BundleTracker({
         filename: "webpack-stats.json",
         path:
-          "./airavata_custos_portal/airavata_custos_portal/apps/frontend/static/airavata_custos_portal_frontend/dist/",
+          "./airavata_custos_portal/apps/frontend/static/airavata_custos_portal_frontend/dist/",
       }),
     ],
   },
