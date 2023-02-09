@@ -13,15 +13,17 @@ pip install airavata-custos-portal
 
 2. Create a Django app
 ```
-django-admin startproject my_first_custos_app
-cd my_first_custos_app/my_first_custos_app
-django-admin startapp my_custom_ui
+django-admin startproject my_first_custos_app .
+cd my_first_custos_app
+django-admin startapp apps
+cd apps
+django-admin startapp frontend
 ```
 
 3. Include the custos portal api and frontend in the urls.
 
 ```
-# my_first_custos_app/my_first_custos_app/urls.py 
+# my_first_custos_app/apps/frontend/urls.py 
 
 from django.contrib import admin
 from django.urls import path
@@ -37,7 +39,7 @@ urlpatterns = [
 4. Also, include the custom UI app in the urls.
 
 ```
-# my_first_custos_app/my_first_custos_app/urls.py 
+# my_first_custos_app/apps/frontend/urls.py 
 
 from django.contrib import admin
 from django.urls import path

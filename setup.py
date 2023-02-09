@@ -10,7 +10,7 @@ def read(fname):
 
 setup(
     name="airavata_custos_portal",
-    version="0.0.3",
+    version="0.0.6",
     url="https://github.com/apache/airavata-custos-portal",
     author="Apache Software Foundation",
     author_email="dev@airavata.apache.org",
@@ -21,7 +21,8 @@ setup(
     long_description=read("README.md"),
     long_description_content_type='text/markdown',
     license="Apache License 2.0",
-    packages=['airavata_custos_portal.apps.frontend', 'airavata_custos_portal.apps.api'],
+    packages=['airavata_custos_portal', 'airavata_custos_portal.apps', 'airavata_custos_portal.apps.frontend',
+              'airavata_custos_portal.apps.api'],
     package_data={'airavata_custos_portal.apps.frontend': ['static/**/*', 'templates/**/*']},
     install_requires=[
         "Django==3.2.16",
