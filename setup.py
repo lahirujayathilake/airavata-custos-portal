@@ -25,11 +25,11 @@ setup(
               'airavata_custos_portal.apps.api'],
     package_data={'airavata_custos_portal.apps.frontend': ['static/**/*', 'templates/**/*']},
     install_requires=[
-        "Django==3.2.16",
-        "django-webpack-loader==0.6.0",
-        "djangorestframework==3.14.0",
-        "requests==2.28.2",
-        "PyJWT==0.4.3",
+        "Django<4.0",
+        "django-webpack-loader",
+        "djangorestframework",
+        "requests",
+        "PyJWT",
         "django-environ"
     ],
     classifiers=[
