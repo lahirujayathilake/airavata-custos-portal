@@ -38,7 +38,8 @@ def get_config(request):
     return Response({
         "VUE_APP_CLIENT_ID": CUSTOS_CLIENT_ID,
         "VUE_APP_CUSTOS_API_URL": request.build_absolute_uri('/api/custos'),
-        "VUE_APP_SUPER_CLIENT_ID": CUSTOS_SUPER_CLIENT_ID
+        "VUE_APP_SUPER_CLIENT_ID": CUSTOS_SUPER_CLIENT_ID,
+        "VUE_APP_UNDER_MAINTENANCE": 0
     })
 
 

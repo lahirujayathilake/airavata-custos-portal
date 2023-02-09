@@ -2,7 +2,8 @@
   <div id="app">
     <Header/>
     <div class="w-100" id="nav">
-      <router-view />
+      <Maintenance v-if="underMaintenance"/>
+      <router-view v-else/>
     </div>
     <Footer/>
   </div>
@@ -12,12 +13,13 @@
 import Header from "./lib/components/block/Header";
 import store from "./lib/store";
 import Footer from "./lib/components/block/Footer";
+import Maintenance from "./lib/components/pages/Maintenance";
 import config from "./config";
 
 export default {
   name: 'App',
   store: store,
-  components: {Footer, Header},
+  components: {Maintenance, Footer, Header},
   data() {
     return {
       underMaintenance: false
