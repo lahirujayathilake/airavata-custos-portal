@@ -1,25 +1,14 @@
-from django.conf import settings
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 import requests
 import base64
 import jwt
 
-import os
-import environ
-
-env = environ.Env()
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-environ.Env.read_env('.env')
-
-CUSTOS_CLIENT_ID = env("CUSTOS_CLIENT_ID")
-CUSTOS_CLIENT_SEC = env("CUSTOS_CLIENT_SEC")
-CUSTOS_API_URL = env("CUSTOS_API_URL")
-CUSTOS_SUPER_CLIENT_ID = env("CUSTOS_SUPER_CLIENT_ID")
-UNDER_MAINTENANCE = env("UNDER_MAINTENANCE")
+from airavata_custos_portal.settings import CUSTOS_CLIENT_ID, CUSTOS_CLIENT_SEC, CUSTOS_API_URL, CUSTOS_SUPER_CLIENT_ID, \
+    UNDER_MAINTENANCE
 
 ENDPOINTS = {
     "IDENTITY": "identity-management/v1.0.0",

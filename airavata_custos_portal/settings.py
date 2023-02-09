@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import json
 import os
 from pathlib import Path
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -154,3 +155,12 @@ REST_FRAMEWORK = {
     # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
 
+env = environ.Env()
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+environ.Env.read_env('.env')
+
+CUSTOS_CLIENT_ID = env("CUSTOS_CLIENT_ID")
+CUSTOS_CLIENT_SEC = env("CUSTOS_CLIENT_SEC")
+CUSTOS_API_URL = env("CUSTOS_API_URL")
+CUSTOS_SUPER_CLIENT_ID = env("CUSTOS_SUPER_CLIENT_ID")
+UNDER_MAINTENANCE = env("UNDER_MAINTENANCE")
