@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -7,8 +8,11 @@ import requests
 import base64
 import jwt
 
-from airavata_custos_portal.settings import CUSTOS_CLIENT_ID, CUSTOS_CLIENT_SEC, CUSTOS_API_URL, CUSTOS_SUPER_CLIENT_ID, \
-    UNDER_MAINTENANCE
+CUSTOS_CLIENT_ID = settings.CUSTOS_CLIENT_ID
+CUSTOS_CLIENT_SEC = settings.CUSTOS_CLIENT_SEC
+CUSTOS_API_URL = settings.CUSTOS_API_URL
+CUSTOS_SUPER_CLIENT_ID = settings.CUSTOS_SUPER_CLIENT_ID
+UNDER_MAINTENANCE = settings.UNDER_MAINTENANCE
 
 ENDPOINTS = {
     "IDENTITY": "identity-management/v1.0.0",
