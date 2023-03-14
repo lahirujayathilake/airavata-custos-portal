@@ -46,7 +46,7 @@ export default class CustosServiceEntitiesSecrets {
     }
 
     async getSecretMetadata({clientId, entityId = []}) {
-        const axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({clientId});
+        const axiosInstance = await this.custosService.axiosInstance;
         const {data: {metadata}} = await axiosInstance.get(
             `${CustosService.ENDPOINTS.SECRETS}/secret/summaries`,
             {

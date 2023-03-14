@@ -12,7 +12,11 @@ export default new Router({
         {
             path: "/",
             name: "home",
-            component: Landing
+            component: Landing,
+            beforeEnter: async (to, from, next) => {
+                await store.dispatch('auth/fetchUserinfo');
+                next(true);
+            }
         },
         {
             path: "/tenants/default",
@@ -201,12 +205,6 @@ export default new Router({
                 import(/*webpackChunkName:"account"*/  "./lib/components/pages/TenantEntity")
         },
         {
-            path: "/callback",
-            name: "callback",
-            component: () =>
-                import(/*webpackChunkName:"users"*/  "./lib/components/pages/Callback")
-        },
-        {
             path: "*",
             name: "notFound",
             component: () =>
@@ -216,7 +214,7 @@ export default new Router({
 })
 
 async function _validateAuthenticationBeforeEnter(to, from, next) {
-    await store.dispatch('auth/refreshAuthentication');
+    await store.dispatch('auth/fetchUserinfo');
     const authenticated = store.getters['auth/authenticated'];
 
     if (!authenticated) {

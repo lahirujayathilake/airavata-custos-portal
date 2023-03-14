@@ -1,66 +1,42 @@
-import decode from "jwt-decode";
-import {hasTokenExpired} from "../util/jwt.util";
 import {custosService} from "../util/custos.util";
-
-// const ACCESS_TOKEN_KEY = 'access_token';
-// const ID_TOKEN_KEY = 'id_token';
-// const REFRESH_TOKEN_KEY = 'refresh_token';
+import custosPortalService from "../../service/custos-portal-services";
 
 const state = {
-    accessToken: null,
-    idToken: null,
-    refreshToken: null
+    userinfo: null
 };
 
 const actions = {
-    async init({commit}) {
-        commit("SET_TOKENS", {
-            accessToken: custosService.identity.accessToken,
-            idToken: custosService.identity.idToken,
-            refreshToken: custosService.identity.refreshToken
-        });
+    async init() {
+        // TODO
     },
-    async fetchAuthorizationEndpoint(obj, {ciLogonInstitutionEntityId = null} = {}) {
-        const {clientId, redirectURI} = custosService;
+    async fetchAuthorizationEndpoint() {
         const {data: {authorization_endpoint}} = await custosService.identity.getOpenIdConfig();
-        let url = `${authorization_endpoint}?response_type=code&client_id=${clientId}&redirect_uri=${redirectURI}&scope=openid`;
 
-        if (ciLogonInstitutionEntityId) {
-            url += `&kc_idp_hint=oidc&idphint=${ciLogonInstitutionEntityId}`;
-        } else {
-            url += `&kc_idp_hint=oidc`;
-        }
-
-        window.location.href = url;
+        window.location.href = authorization_endpoint;
     },
-    async authenticateUsingCode({commit}, {code}) {
-        const {data: {access_token, id_token, refresh_token}} = await custosService.identity.getToken({code});
-        commit("SET_TOKENS", {accessToken: access_token, idToken: id_token, refreshToken: refresh_token});
+    async authenticateUsingCode(o, {code}) {
+        await custosService.identity.getToken({code});
     },
-    async authenticateLocally({commit}, {username, password}) {
-        const {data: {access_token, id_token, refresh_token}} = await custosService.identity.localLogin({
+    async authenticateLocally(o, {username, password}) {
+        await custosService.identity.localLogin({
             username, password
         });
-        commit("SET_TOKENS", {accessToken: access_token, idToken: id_token, refreshToken: refresh_token});
     },
-    async logout({commit}) {
+    async logout() {
         await custosService.identity.logout();
-        commit("CLEAR_TOKENS");
     },
-    async refreshAuthentication({commit, state}) {
-        if (state.refreshToken && hasTokenExpired(state.refreshToken)) {
-            await custosService.identity.getTokenUsingRefreshToken()
-                .catch(() => commit("CLEAR_TOKENS"))
-                .then((res) => {
-                    if (!res || !res.data) {
-                        commit("CLEAR_TOKENS")
+    async refreshAuthentication() {
+        await custosService.identity.getTokenUsingRefreshToken();
+    },
+    async fetchUserinfo({commit, state}) {
+        if (!state.userinfo) {
+            await custosPortalService.fetchUserinfo()
+                .catch(() => commit("CLEAR_USERINFO"))
+                .then((data) => {
+                    if (!data) {
+                        commit("CLEAR_USERINFO");
                     } else {
-                        const {data: {access_token, id_token, refresh_token}} = res;
-                        commit("SET_TOKENS", {
-                            accessToken: access_token,
-                            idToken: id_token,
-                            refreshToken: refresh_token
-                        });
+                        commit("SET_USERINFO", data);
                     }
                 });
         }
@@ -68,61 +44,40 @@ const actions = {
 }
 
 const mutations = {
-    SET_TOKENS(state, {accessToken, idToken, refreshToken}) {
-        // custosService.identity.accessToken = accessToken;
-        // custosService.identity.idToken = idToken;
-        // custosService.identity.refreshToken = refreshToken;
-
-        state.accessToken = accessToken;
-        state.idToken = idToken;
-        state.refreshToken = refreshToken;
+    SET_USERINFO(state, userinfo) {
+        state.userinfo = userinfo;
     },
-    CLEAR_TOKENS(state) {
-        // custosService.identity.accessToken = null;
-        // custosService.identity.idToken = null;
-        // custosService.identity.refreshToken = null;
-
-        state.accessToken = null;
-        state.idToken = null;
-        state.refreshToken = null;
+    CLEAR_USERINFO(state) {
+        state.userinfo = null;
     }
 }
 
 const getters = {
-    accessToken(state) {
-        return state.accessToken;
+    authenticated(state) {
+        return !!state.userinfo;
     },
-    idToken(state) {
-        return state.idToken;
-    },
-    refreshToken(state) {
-        return state.refreshToken;
-    },
-    authenticated(state, getters) {
-        if (getters.idToken && !hasTokenExpired(state.idToken)) {
-            return true;
-        } else {
-            return false;
-        }
-    },
-    isAdmin(state, getters) {
-        try {
-            let {realm_access: {roles}} = decode(getters.accessToken);
-            return roles.indexOf("admin") >= 0;
-        } catch (err) {
-            return false;
-        }
-    },
-    currentUsername(state, getters) {
-        if (getters.accessToken) {
+    isAdmin(state) {
+        if (state.userinfo) {
             try {
-                let {preferred_username} = decode(getters.accessToken);
-                return preferred_username;
+                let {realm_access: {roles}} = state.userinfo;
+                return roles.indexOf("admin") >= 0;
             } catch (err) {
-                return null
+                return false;
             }
         } else {
             return null
+        }
+    },
+    currentUsername(state) {
+        if (state.userinfo) {
+            try {
+                let {preferred_username} = state.userinfo;
+                return preferred_username;
+            } catch (err) {
+                return null;
+            }
+        } else {
+            return null;
         }
     }
 }

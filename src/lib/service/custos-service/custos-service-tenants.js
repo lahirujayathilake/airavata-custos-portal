@@ -36,7 +36,7 @@ export default class CustosTenants {
             params["requester_email"] = requesterEmail;
         }
 
-        return this.custosService.axiosInstanceWithTokenAuthorization.get(
+        return this.custosService.axiosInstance.get(
             url, {params: params}
         ).then(({data}) => data)
 
@@ -51,7 +51,7 @@ export default class CustosTenants {
      * @return {Promise<AxiosResponse<any>>}
      */
     createTenantRole({clientId, name, description, composite = false, clientLevel = false}) {
-        return this.custosService.axiosInstanceWithTokenAuthorization.post(
+        return this.custosService.axiosInstance.post(
             `${CustosService.ENDPOINTS.TENANTS}/roles`,
             {
                 "roles": [{name, description}],
@@ -63,7 +63,7 @@ export default class CustosTenants {
     }
 
     deleteTenantRole({clientId, name, clientLevel = false}) {
-        return this.custosService.axiosInstanceWithTokenAuthorization.delete(
+        return this.custosService.axiosInstance.delete(
             `${CustosService.ENDPOINTS.TENANTS}/role`,
             {
                 data: {
@@ -80,7 +80,7 @@ export default class CustosTenants {
      * @return {Promise<AxiosResponse<any>>}
      */
     async fetchTenantRoles({clientId, clientLevel = false}) {
-        const axiosInstance = await this.custosService.axiosInstanceWithTokenAuthorization;
+        const axiosInstance = await this.custosService.axiosInstance;
         return axiosInstance.get(
             `${CustosService.ENDPOINTS.TENANTS}/roles`,
             {
@@ -92,13 +92,10 @@ export default class CustosTenants {
         );
     }
 
-    async createTenant({username, firstName, lastName, email, password, tenantName, redirectUris, scope, domain, clientUri, logoUri, comment, applicationType, parentClientId, parentClientSecret}) {
+    async createTenant({username, firstName, lastName, email, password, tenantName, redirectUris, scope, domain, clientUri, logoUri, comment, applicationType, parentClientId}) {
         let axiosInstance;
         if (parentClientId !== config.value('superClientId')) {
-            axiosInstance = await this.custosService.getAxiosInstanceWithClientAuthorization({
-                clientId: parentClientId,
-                clientSecret: parentClientSecret
-            });
+            axiosInstance = await this.custosService.axiosInstance;
         } else {
             axiosInstance = this.custosService.axiosInstance;
         }
@@ -120,13 +117,14 @@ export default class CustosTenants {
                 "client_uri": clientUri,
                 "logo_uri": logoUri,
                 "application_type": applicationType,
-                "comment": comment
+                "comment": comment,
+                "parent_client_id": parentClientId
             }
         );
     }
 
     updateTenant({username, firstName, lastName, email, tenantId, clientId, tenantName, redirectUris, scope, domain, clientUri, logoUri, comment, applicationType, requesterEmail}) {
-        let axiosInstance = this.custosService.axiosInstanceWithTokenAuthorization;
+        let axiosInstance = this.custosService.axiosInstance;
 
         return axiosInstance.put(
             `${CustosService.ENDPOINTS.TENANTS}/oauth2/tenant`,
@@ -152,7 +150,7 @@ export default class CustosTenants {
     }
 
     fetchTenant({clientId}) {
-        return this.custosService.axiosInstanceWithTokenAuthorization.get(
+        return this.custosService.axiosInstance.get(
             `${CustosService.ENDPOINTS.TENANTS}/oauth2/tenant`,
             {
                 params: {
@@ -163,7 +161,7 @@ export default class CustosTenants {
     }
 
     updateTenantStatus({clientId, status}) {
-        return this.custosService.axiosInstanceWithTokenAuthorization.post(
+        return this.custosService.axiosInstance.post(
             `${CustosService.ENDPOINTS.TENANTS}/status`,
             {
                 client_id: clientId,

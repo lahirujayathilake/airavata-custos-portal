@@ -46,7 +46,7 @@
           <hr style="flex: 1;background-color: #203A43;"/>
         </div>
         <div class="w-100 mt-3">
-          <form v-on:submit.prevent="this.login" class="p-2">
+          <form v-on:submit.prevent="login" class="p-2">
             <div class="mb-2">
               <label class="form-input-label" for="form-input-username">Username</label>
               <b-form-input id="form-input-username" v-model="username" size="sm" placeholder="Username"></b-form-input>
@@ -121,9 +121,7 @@ export default {
       this.loginError = false
     },
     loadAuthURL() {
-      store.dispatch("auth/fetchAuthorizationEndpoint", {
-        ciLogonInstitutionEntityId: this.ciLogonInstitutionEntityId
-      });
+      store.dispatch("auth/fetchAuthorizationEndpoint");
     },
     redirectIfAuthenticated() {
       if (this.authenticated === true) {
