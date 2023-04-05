@@ -8,12 +8,11 @@ services:
       - /Users/isururanawaka/Documents/Airavata_Repository/airavata-custos-portal/privkey.pem:/etc/nginx/privkey.pem
       - /Users/isururanawaka/Documents/Airavata_Repository/airavata-custos-portal/fullchain.pem:/etc/nginx/fullchain.pem
     environment:
-      VUE_APP_CLIENT_ID: ''
-      VUE_APP_CLIENT_SEC: ''
-      VUE_APP_REDIRECT_URI: 'http://localhost:8080/callback'
-      VUE_APP_CUSTOS_API_URL: 'https://custos.scigap.org/apiserver'
-      VUE_APP_SUPER_CLIENT_ID: ''
-      VUE_APP_UNDER_MAINTENANCE: false
+      CUSTOS_CLIENT_ID: ''
+      CUSTOS_CLIENT_SEC: ''
+      CUSTOS_API_URL: 'https://custos.scigap.org/apiserver'
+      CUSTOS_SUPER_CLIENT_ID: ''
+      UNDER_MAINTENANCE: false
       # TODO: configure DJANGO_ALLOWED_HOSTS for the webserver domain names. A JSON encoded array of strings.
       # e.g., '["portal.usecustos.org"]'
       # DJANGO_ALLOWED_HOSTS: ''
