@@ -1,5 +1,5 @@
 # build stage
-FROM node:14-alpine as build-stage
+FROM node:14 as build-stage
 WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn
@@ -15,7 +15,9 @@ RUN mkdir /django
 COPY requirements.txt /django/
 RUN python3 -m pip install --upgrade pip setuptools wheel --no-cache
 RUN python3 -m pip install -r /django/requirements.txt --no-cache
-COPY --from=build-stage /app/airavata_custos_portal /django
+RUN mkdir /django/airavata_custos_portal
+COPY --from=build-stage /app/airavata_custos_portal /django/airavata_custos_portal
+COPY --from=build-stage /app/manage.py /django/
 WORKDIR /django
 ENV DJANGO_DEBUG=false
 ENV DJANGO_STATIC_ROOT=/usr/share/nginx/html/static

@@ -136,13 +136,13 @@ WEBPACK_LOADER = {
     "FRONTEND": {
         "BUNDLE_DIR_NAME": "airavata_custos_portal_frontend/dist/",
         "STATS_FILE": BASE_DIR
-                      / "airavata_custos_portal"
-                      / "apps"
-                      / "frontend"
-                      / "static"
-                      / "airavata_custos_portal_frontend"
-                      / "dist"
-                      / "webpack-stats.json",
+        / "airavata_custos_portal"
+        / "apps"
+        / "frontend"
+        / "static"
+        / "airavata_custos_portal_frontend"
+        / "dist"
+        / "webpack-stats.json",
         "TIMEOUT": 60,
     },
 }
@@ -157,10 +157,10 @@ REST_FRAMEWORK = {
 
 env = environ.Env()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-environ.Env.read_env('.env')
+environ.Env.read_env(".env")
 
-CUSTOS_CLIENT_ID = env("CUSTOS_CLIENT_ID")
-CUSTOS_CLIENT_SEC = env("CUSTOS_CLIENT_SEC")
-CUSTOS_API_URL = env("CUSTOS_API_URL")
-CUSTOS_SUPER_CLIENT_ID = env("CUSTOS_SUPER_CLIENT_ID")
-UNDER_MAINTENANCE = env("UNDER_MAINTENANCE")
+CUSTOS_CLIENT_ID = env("CUSTOS_CLIENT_ID", default="")
+CUSTOS_CLIENT_SEC = env("CUSTOS_CLIENT_SEC", default="")
+CUSTOS_API_URL = env("CUSTOS_API_URL", default="")
+CUSTOS_SUPER_CLIENT_ID = env("CUSTOS_SUPER_CLIENT_ID", default="")
+UNDER_MAINTENANCE = env("UNDER_MAINTENANCE", default="")
