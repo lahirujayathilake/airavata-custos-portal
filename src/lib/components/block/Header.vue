@@ -2,7 +2,7 @@
   <div>
     <div class="header p-3">
       <div class="custos-logo">
-        <img src="../../../assets/custos-logo_custos-logo-color-v1.png" style="width: 140px;">
+        <img src="../../../assets/nasa-logo.png" style="width: 140px;">
       </div>
       <div class="user-details" v-if="this.authenticated && user">
         <div class="username">{{ user.firstName + " " + user.lastName }}</div>
@@ -66,7 +66,11 @@ export default {
     }
   },
   methods: {
-    logout: () => store.dispatch("auth/logout")
+    logout() {
+    store.dispatch("auth/logout").then(() => {
+      this.$router.push('/');
+    });
+  }
   },
   // watch: {
   //   authenticated() {

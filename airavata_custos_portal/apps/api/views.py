@@ -15,10 +15,10 @@ CUSTOS_SUPER_CLIENT_ID = settings.CUSTOS_SUPER_CLIENT_ID
 UNDER_MAINTENANCE = settings.UNDER_MAINTENANCE
 
 ENDPOINTS = {
-    "IDENTITY": "identity-management/v1.0.0",
-    "USERS": "user-management/v1.0.0",
+    "IDENTITY": "v1/identity-management",
+    "USERS": "v1/user-management",
     "GROUPS": "group-management/v1.0.0",
-    "TENANTS": "tenant-management/v1.0.0",
+    "TENANTS": "v1/tenant-management",
     "SHARING": "sharing-management/v1.0.0",
     "SECRETS": "resource-secret-management/v1.0.0"
 }
@@ -30,7 +30,7 @@ def get_config(request):
     # Just a simple REST API view to show how to access VUE_APP_* settings
     return Response({
         "VUE_APP_CLIENT_ID": CUSTOS_CLIENT_ID,
-        "VUE_APP_CUSTOS_API_URL": request.build_absolute_uri('/api/custos'),
+        "VUE_APP_CUSTOS_API_URL": request.build_absolute_uri('/api/v1'),
         "VUE_APP_SUPER_CLIENT_ID": CUSTOS_SUPER_CLIENT_ID,
         "VUE_APP_UNDER_MAINTENANCE": 0
     })
@@ -105,14 +105,16 @@ def set_token_response_session(request, response):
     request.session.set_expiry(response_json["expires_in"])
     request.session['access_token'] = response_json["access_token"]
     request.session['refresh_token'] = response_json["refresh_token"]
-    request.session['id_token'] = response_json["id_token"]
+    id_token = response_json.get("id_token")
+    if id_token:
+        request.session['id_token'] = id_token
 
 
 def remove_token_response_session(request):
     del request.session['access_token']
     del request.session['refresh_token']
-    del request.session['id_token']
-
+    if 'id_token' in request.session:
+        del request.session['id_token']
 
 custos_resource_map = {
     "credentials": f"{ENDPOINTS['IDENTITY']}/credentials"

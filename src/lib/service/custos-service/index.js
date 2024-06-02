@@ -13,10 +13,10 @@ const httpsAgent = new https.Agent({keepAlive: true});
 
 export default class CustosService {
     static ENDPOINTS = {
-        IDENTITY: "/identity-management/v1.0.0",
-        USERS: "user-management/v1.0.0",
+        IDENTITY: "/identity-management",
+        USERS: "user-management",
         GROUPS: "group-management/v1.0.0",
-        TENANTS: "tenant-management/v1.0.0",
+        TENANTS: "tenant-management",
         SHARING: "sharing-management/v1.0.0",
         SECRETS: "resource-secret-management/v1.0.0"
     };

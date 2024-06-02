@@ -2,7 +2,7 @@
   <b-container style="padding-top: 60px;">
     <b-row align-v="start" align-h="center">
       <b-col style="min-width: 300px; max-width: 600px;">
-        <h2>Welcome to Custos</h2>
+        <h2>Welcome to VEDA Auth Central</h2>
         <p class="h2-sub">Sign up and start authenticating</p>
         <!--        <div class="main-links">-->
         <!--          <b-link href="http://airavata.apache.org/custos/" target="_blank">Custos Website</b-link>-->
